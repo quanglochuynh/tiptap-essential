@@ -1,5 +1,5 @@
-export function add(a: number, b: number): number {
-  return a + b;
-}
+import useTipTap from "./TipTapEssential/useTipTap";
+import MenuBar from "./TipTapEssential/MenuBar";
+import { EditorContent } from "@tiptap/react";
 
-console.log(add(3, 5)); //output: 8
+export { useTipTap, MenuBar, EditorContent };
