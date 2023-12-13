@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useTipTap, EditorContent, MenuBar } from "../../package/dist";
+import { useTipTap, EditorContent, MenuBar } from "tiptap-essential";
 
 export default function Editor() {
   const [content, setContent] = useState("<p></p>");
