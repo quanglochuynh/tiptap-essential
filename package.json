@@ -1,0 +1,25 @@
+{
+  "name": "tiptap-essential",
+  "version": "1.0.0",
+  "description": "Super fast tiptap rich text editor implementation to your React app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "@locqhuynh/tiptap-essential"
+  },
+  "keywords": [
+    "rich",
+    "text",
+    "editor",
+    "tiptap"
+  ],
+  "author": "Loc Q. Huynh",
+  "license": "MIT",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
