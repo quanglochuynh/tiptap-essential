@@ -10,4 +10,4 @@ yarn-debug.log
 # Ignore yarn error log
 yarn-error.log
 
-/dist
+dist/

@@ -22,15 +22,15 @@ import TextAlign from "@tiptap/extension-text-align";
 
 type Props = {
   placeholder?: string;
-  content?: string;
-  setContent: (content: string) => void;
+  initValue?: string;
+  onChange?: (content: string) => void;
   uploadImage?: (file: File) => Promise<string>;
 };
 
 export default function useTipTap({
   placeholder,
-  content,
-  setContent,
+  initValue,
+  onChange,
   uploadImage,
 }: Props) {
   const editor = useEditor({
@@ -63,14 +63,14 @@ export default function useTipTap({
         types: ["heading", "paragraph"],
       }),
     ],
-    content,
+    content: initValue || "<p></p>",
   }) as Editor;
 
   useEffect(() => {
-    if (editor) {
-      setContent(editor.getHTML());
+    if (editor && onChange) {
+      onChange(editor.getHTML());
     }
-  }, [editor, setContent]);
+  }, [editor, onChange]);
 
   const toggleBold = useCallback(() => {
     editor.chain().focus().toggleBold().run();

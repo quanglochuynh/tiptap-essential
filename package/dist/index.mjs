@@ -43,8 +43,8 @@ import Highlight from "@tiptap/extension-highlight";
 import TextAlign from "@tiptap/extension-text-align";
 function useTipTap({
   placeholder,
-  content,
-  setContent,
+  initValue,
+  onChange,
   uploadImage
 }) {
   const editor = useEditor({
@@ -77,13 +77,13 @@ function useTipTap({
         types: ["heading", "paragraph"]
       })
     ],
-    content
+    content: initValue || "<p></p>"
   });
   useEffect(() => {
-    if (editor) {
-      setContent(editor.getHTML());
+    if (editor && onChange) {
+      onChange(editor.getHTML());
     }
-  }, [editor, setContent]);
+  }, [editor, onChange]);
   const toggleBold = useCallback(() => {
     editor.chain().focus().toggleBold().run();
   }, [editor]);

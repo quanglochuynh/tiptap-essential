@@ -80,8 +80,8 @@ var import_extension_highlight = __toESM(require("@tiptap/extension-highlight"))
 var import_extension_text_align = __toESM(require("@tiptap/extension-text-align"));
 function useTipTap({
   placeholder,
-  content,
-  setContent,
+  initValue,
+  onChange,
   uploadImage
 }) {
   const editor = (0, import_react2.useEditor)({
@@ -114,13 +114,13 @@ function useTipTap({
         types: ["heading", "paragraph"]
       })
     ],
-    content
+    content: initValue || "<p></p>"
   });
   (0, import_react.useEffect)(() => {
-    if (editor) {
-      setContent(editor.getHTML());
+    if (editor && onChange) {
+      onChange(editor.getHTML());
     }
-  }, [editor, setContent]);
+  }, [editor, onChange]);
   const toggleBold = (0, import_react.useCallback)(() => {
     editor.chain().focus().toggleBold().run();
   }, [editor]);

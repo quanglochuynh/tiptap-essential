@@ -93,6 +93,9 @@
   display: block;
 }
 
+.tiptap-editor img {
+  max-width: 100%;
+}
 
 /* Basic editor styles */
 .ProseMirror {

@@ -2,20 +2,31 @@ import "tiptap-essential/dist/index.css";
 import "./styles.css";
 import { useState } from "react";
 import { useTipTap, MenuBar, ContentEditor } from "tiptap-essential";
+import {} from "react";
 
 export default function App() {
-  const [content, setContent] = useState<string>("<p></p>");
+  const [content, setContent] = useState<string>("<p>Lorem ipsum</p>");
   const { editor, toggles, menuActions } = useTipTap({
     placeholder: "Start typing something...",
-    content,
-    setContent,
+    initValue: content,
+    // onChange: (content) => setContent(content),
     uploadImage: async (file: File) => {
       console.log(file);
       return "https://picsum.photos/200/300";
     },
   });
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 8,
+        padding: 8,
+        maxWidth: "40rem",
+        margin: "auto",
+        marginTop: "2rem",
+      }}
+    >
       <MenuBar
         toggles={toggles}
         menuActions={menuActions}
@@ -23,6 +34,7 @@ export default function App() {
           border: "black 2px solid",
           padding: 8,
           display: "flex",
+          flexWrap: "wrap",
           alignItems: "center",
           gap: 4,
           borderRadius: 8,
@@ -61,6 +73,8 @@ export default function App() {
         editor={editor}
         boxStyle={{ border: "black 2px solid", padding: 4, borderRadius: 8 }}
       />
-    </>
+      <p>{content}</p>
+      <button onClick={() => setContent(editor.getHTML())}>Get HTML</button>
+    </div>
   );
 }

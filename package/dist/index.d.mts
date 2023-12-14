@@ -5,11 +5,11 @@ import { Level } from '@tiptap/extension-heading';
 
 type Props$2 = {
     placeholder?: string;
-    content?: string;
-    setContent: (content: string) => void;
+    initValue?: string;
+    onChange?: (content: string) => void;
     uploadImage?: (file: File) => Promise<string>;
 };
-declare function useTipTap({ placeholder, content, setContent, uploadImage, }: Props$2): {
+declare function useTipTap({ placeholder, initValue, onChange, uploadImage, }: Props$2): {
     editor: Editor;
     menuActions: {
         hasImageAPI: boolean;
