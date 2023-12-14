@@ -42,7 +42,11 @@ type Props = {
     addImage: () => void;
     fileRef: React.RefObject<HTMLInputElement>;
     handleSelectImg: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    hasImageAPI: boolean;
   };
+  boxStyle?: React.CSSProperties;
+  buttonStyle?: React.CSSProperties;
+  selectStyle?: React.CSSProperties;
 };
 
 export default function MenuBar({
@@ -63,29 +67,40 @@ export default function MenuBar({
     toggleRedo,
     toggleUndo,
   },
-  menuActions: { currentHeading, addImage, fileRef, handleSelectImg },
+  menuActions: {
+    currentHeading,
+    addImage,
+    fileRef,
+    handleSelectImg,
+    hasImageAPI,
+  },
+  boxStyle,
+  buttonStyle,
+  selectStyle,
 }: Props) {
   return (
-    <div className="tiptap-menu">
-      <button onClick={toggleUndo}>
+    <div className="tiptap-menu" style={boxStyle}>
+      <button onClick={toggleUndo} style={buttonStyle} title="Undo">
         <LuUndo />
       </button>
-      <button onClick={toggleRedo}>
+      <button onClick={toggleRedo} style={buttonStyle} title="Redo">
         <LuRedo />
       </button>
-      <button onClick={toggleBold}>
+      <button onClick={toggleBold} style={buttonStyle} title="Bold">
         <LuBold />
       </button>
-      <button onClick={toggleItalic}>
+      <button onClick={toggleItalic} style={buttonStyle} title="Italic">
         <LuItalic />
       </button>
-      <button onClick={toggleStrike}>
+      <button onClick={toggleStrike} style={buttonStyle} title="Strike">
         <LuStrikethrough />
       </button>
-      <button onClick={toggleUnderline}>
+      <button onClick={toggleUnderline} style={buttonStyle} title="Underline">
         <LuUnderline />
       </button>
       <select
+        title="Heading"
+        style={selectStyle}
         value={currentHeading.toString()}
         onChange={(e) => {
           if (parseInt(e.target.value) === 0) {
@@ -102,43 +117,75 @@ export default function MenuBar({
           </option>
         ))}
       </select>
-      <button onClick={toggleCode}>
+      <button onClick={toggleCode} style={buttonStyle} title="Code">
         <LuCode />
       </button>
-      <button onClick={toggleBlockquote}>
+      <button onClick={toggleBlockquote} style={buttonStyle} title="Blockquote">
         <LuQuote />
       </button>
-      <button onClick={toggleBulletList}>
+      <button
+        onClick={toggleBulletList}
+        style={buttonStyle}
+        title="Bullet List"
+      >
         <LuList />
       </button>
-      <button onClick={toggleOrderedList}>
+      <button
+        onClick={toggleOrderedList}
+        style={buttonStyle}
+        title="Ordered List"
+      >
         <LuListOrdered />
       </button>
-      <button onClick={splitListItem}>
+      <button
+        onClick={splitListItem}
+        style={buttonStyle}
+        title="Split List Item"
+      >
         <LuSplit />
       </button>
-      <button onClick={() => toggleTextAlign("left")}>
+      <button
+        onClick={() => toggleTextAlign("left")}
+        style={buttonStyle}
+        title="Align Left"
+      >
         <LuAlignLeft />
       </button>
-      <button onClick={() => toggleTextAlign("center")}>
+      <button
+        onClick={() => toggleTextAlign("center")}
+        style={buttonStyle}
+        title="Align Center"
+      >
         <LuAlignCenter />
       </button>
-      <button onClick={() => toggleTextAlign("right")}>
+      <button
+        onClick={() => toggleTextAlign("right")}
+        style={buttonStyle}
+        title="Align Right"
+      >
         <LuAlignRight />
       </button>
-      <button onClick={() => toggleHighlight()}>
+      <button
+        onClick={() => toggleHighlight()}
+        style={buttonStyle}
+        title="Highlight"
+      >
         <LuHighlighter />
       </button>
-      <input
-        type="file"
-        id="file"
-        ref={fileRef}
-        multiple={false}
-        onChange={handleSelectImg}
-      />
-      <button onClick={addImage}>
-        <LuImage />
-      </button>
+      {hasImageAPI && (
+        <>
+          <input
+            type="file"
+            id="file"
+            ref={fileRef}
+            multiple={false}
+            onChange={handleSelectImg}
+          />
+          <button onClick={addImage} style={buttonStyle} title="Add Image">
+            <LuImage />
+          </button>
+        </>
+      )}
     </div>
   );
 }

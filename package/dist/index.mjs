@@ -146,18 +146,22 @@ function useTipTap({
     (_0) => __async(this, [_0], function* ({ target }) {
       const files = target.files;
       if (!files)
-        return;
-      if (uploadImage === void 0)
-        return;
+        return void 0;
+      if (files.length === 0)
+        return void 0;
+      if (files[0].type.indexOf("image/") === -1)
+        return void 0;
+      if (!uploadImage)
+        return void 0;
       try {
-        const ret = yield uploadImage();
+        const ret = yield uploadImage(files[0]);
         editor.chain().focus().setImage({ src: ret }).run();
       } catch (error) {
         alert(error.message);
         return;
       }
     }),
-    [editor]
+    [editor, uploadImage]
   );
   const addImage = useCallback(() => {
     if (fileRef.current) {
@@ -168,6 +172,7 @@ function useTipTap({
   return {
     editor,
     menuActions: {
+      hasImageAPI: uploadImage !== void 0,
       addImage,
       currentHeading,
       fileRef,
@@ -231,11 +236,22 @@ function MenuBar({
     toggleRedo,
     toggleUndo
   },
-  menuActions: { currentHeading, addImage, fileRef, handleSelectImg }
+  menuActions: {
+    currentHeading,
+    addImage,
+    fileRef,
+    handleSelectImg,
+    hasImageAPI
+  },
+  boxStyle,
+  buttonStyle,
+  selectStyle
 }) {
-  return /* @__PURE__ */ React.createElement("div", { className: "tiptap-menu" }, /* @__PURE__ */ React.createElement("button", { onClick: toggleUndo }, /* @__PURE__ */ React.createElement(LuUndo, null)), /* @__PURE__ */ React.createElement("button", { onClick: toggleRedo }, /* @__PURE__ */ React.createElement(LuRedo, null)), /* @__PURE__ */ React.createElement("button", { onClick: toggleBold }, /* @__PURE__ */ React.createElement(LuBold, null)), /* @__PURE__ */ React.createElement("button", { onClick: toggleItalic }, /* @__PURE__ */ React.createElement(LuItalic, null)), /* @__PURE__ */ React.createElement("button", { onClick: toggleStrike }, /* @__PURE__ */ React.createElement(LuStrikethrough, null)), /* @__PURE__ */ React.createElement("button", { onClick: toggleUnderline }, /* @__PURE__ */ React.createElement(LuUnderline, null)), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { className: "tiptap-menu", style: boxStyle }, /* @__PURE__ */ React.createElement("button", { onClick: toggleUndo, style: buttonStyle, title: "Undo" }, /* @__PURE__ */ React.createElement(LuUndo, null)), /* @__PURE__ */ React.createElement("button", { onClick: toggleRedo, style: buttonStyle, title: "Redo" }, /* @__PURE__ */ React.createElement(LuRedo, null)), /* @__PURE__ */ React.createElement("button", { onClick: toggleBold, style: buttonStyle, title: "Bold" }, /* @__PURE__ */ React.createElement(LuBold, null)), /* @__PURE__ */ React.createElement("button", { onClick: toggleItalic, style: buttonStyle, title: "Italic" }, /* @__PURE__ */ React.createElement(LuItalic, null)), /* @__PURE__ */ React.createElement("button", { onClick: toggleStrike, style: buttonStyle, title: "Strike" }, /* @__PURE__ */ React.createElement(LuStrikethrough, null)), /* @__PURE__ */ React.createElement("button", { onClick: toggleUnderline, style: buttonStyle, title: "Underline" }, /* @__PURE__ */ React.createElement(LuUnderline, null)), /* @__PURE__ */ React.createElement(
     "select",
     {
+      title: "Heading",
+      style: selectStyle,
       value: currentHeading.toString(),
       onChange: (e) => {
         if (parseInt(e.target.value) === 0) {
@@ -247,7 +263,63 @@ function MenuBar({
     },
     /* @__PURE__ */ React.createElement("option", { value: 0 }, "Normal"),
     Array.from(Array(6).keys()).map((_, index) => /* @__PURE__ */ React.createElement("option", { key: index, value: index + 1 }, "Heading ", index + 1))
-  ), /* @__PURE__ */ React.createElement("button", { onClick: toggleCode }, /* @__PURE__ */ React.createElement(LuCode, null)), /* @__PURE__ */ React.createElement("button", { onClick: toggleBlockquote }, /* @__PURE__ */ React.createElement(LuQuote, null)), /* @__PURE__ */ React.createElement("button", { onClick: toggleBulletList }, /* @__PURE__ */ React.createElement(LuList, null)), /* @__PURE__ */ React.createElement("button", { onClick: toggleOrderedList }, /* @__PURE__ */ React.createElement(LuListOrdered, null)), /* @__PURE__ */ React.createElement("button", { onClick: splitListItem }, /* @__PURE__ */ React.createElement(LuSplit, null)), /* @__PURE__ */ React.createElement("button", { onClick: () => toggleTextAlign("left") }, /* @__PURE__ */ React.createElement(LuAlignLeft, null)), /* @__PURE__ */ React.createElement("button", { onClick: () => toggleTextAlign("center") }, /* @__PURE__ */ React.createElement(LuAlignCenter, null)), /* @__PURE__ */ React.createElement("button", { onClick: () => toggleTextAlign("right") }, /* @__PURE__ */ React.createElement(LuAlignRight, null)), /* @__PURE__ */ React.createElement("button", { onClick: () => toggleHighlight() }, /* @__PURE__ */ React.createElement(LuHighlighter, null)), /* @__PURE__ */ React.createElement(
+  ), /* @__PURE__ */ React.createElement("button", { onClick: toggleCode, style: buttonStyle, title: "Code" }, /* @__PURE__ */ React.createElement(LuCode, null)), /* @__PURE__ */ React.createElement("button", { onClick: toggleBlockquote, style: buttonStyle, title: "Blockquote" }, /* @__PURE__ */ React.createElement(LuQuote, null)), /* @__PURE__ */ React.createElement(
+    "button",
+    {
+      onClick: toggleBulletList,
+      style: buttonStyle,
+      title: "Bullet List"
+    },
+    /* @__PURE__ */ React.createElement(LuList, null)
+  ), /* @__PURE__ */ React.createElement(
+    "button",
+    {
+      onClick: toggleOrderedList,
+      style: buttonStyle,
+      title: "Ordered List"
+    },
+    /* @__PURE__ */ React.createElement(LuListOrdered, null)
+  ), /* @__PURE__ */ React.createElement(
+    "button",
+    {
+      onClick: splitListItem,
+      style: buttonStyle,
+      title: "Split List Item"
+    },
+    /* @__PURE__ */ React.createElement(LuSplit, null)
+  ), /* @__PURE__ */ React.createElement(
+    "button",
+    {
+      onClick: () => toggleTextAlign("left"),
+      style: buttonStyle,
+      title: "Align Left"
+    },
+    /* @__PURE__ */ React.createElement(LuAlignLeft, null)
+  ), /* @__PURE__ */ React.createElement(
+    "button",
+    {
+      onClick: () => toggleTextAlign("center"),
+      style: buttonStyle,
+      title: "Align Center"
+    },
+    /* @__PURE__ */ React.createElement(LuAlignCenter, null)
+  ), /* @__PURE__ */ React.createElement(
+    "button",
+    {
+      onClick: () => toggleTextAlign("right"),
+      style: buttonStyle,
+      title: "Align Right"
+    },
+    /* @__PURE__ */ React.createElement(LuAlignRight, null)
+  ), /* @__PURE__ */ React.createElement(
+    "button",
+    {
+      onClick: () => toggleHighlight(),
+      style: buttonStyle,
+      title: "Highlight"
+    },
+    /* @__PURE__ */ React.createElement(LuHighlighter, null)
+  ), hasImageAPI && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(
     "input",
     {
       type: "file",
@@ -256,13 +328,17 @@ function MenuBar({
       multiple: false,
       onChange: handleSelectImg
     }
-  ), /* @__PURE__ */ React.createElement("button", { onClick: addImage }, /* @__PURE__ */ React.createElement(LuImage, null)));
+  ), /* @__PURE__ */ React.createElement("button", { onClick: addImage, style: buttonStyle, title: "Add Image" }, /* @__PURE__ */ React.createElement(LuImage, null))));
 }
 
-// src/index.ts
+// src/TipTapEssential/ContentEditor.tsx
 import { EditorContent } from "@tiptap/react";
+import React2 from "react";
+function ContentEditor({ editor, boxStyle }) {
+  return /* @__PURE__ */ React2.createElement("div", { className: "tiptap-editor", style: boxStyle }, editor && /* @__PURE__ */ React2.createElement(EditorContent, { editor }));
+}
 export {
-  EditorContent,
+  ContentEditor,
   MenuBar,
   useTipTap
 };

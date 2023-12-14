@@ -1,5 +1,4 @@
 import { ChangeEvent, useCallback, useEffect, useMemo, useRef } from "react";
-import React from "react";
 import { useEditor, Editor } from "@tiptap/react";
 import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
@@ -25,7 +24,7 @@ type Props = {
   placeholder?: string;
   content?: string;
   setContent: (content: string) => void;
-  uploadImage?: () => Promise<string>;
+  uploadImage?: (file: File) => Promise<string>;
 };
 
 export default function useTipTap({
@@ -151,17 +150,19 @@ export default function useTipTap({
   const handleSelectImg = useCallback(
     async ({ target }: ChangeEvent<HTMLInputElement>) => {
       const files = target.files;
-      if (!files) return;
-      if (uploadImage === undefined) return;
+      if (!files) return undefined;
+      if (files.length === 0) return undefined;
+      if (files[0].type.indexOf("image/") === -1) return undefined;
+      if (!uploadImage) return undefined;
       try {
-        const ret = (await uploadImage()) as string;
+        const ret = (await uploadImage(files[0])) as string;
         editor.chain().focus().setImage({ src: ret }).run();
       } catch (error) {
         alert((error as Error).message);
         return;
       }
     },
-    [editor]
+    [editor, uploadImage]
   );
 
   const addImage = useCallback(() => {
@@ -175,6 +176,7 @@ export default function useTipTap({
   return {
     editor,
     menuActions: {
+      hasImageAPI: uploadImage !== undefined,
       addImage,
       currentHeading,
       fileRef,

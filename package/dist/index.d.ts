@@ -1,21 +1,22 @@
-import React, { ChangeEvent } from 'react';
+import * as React from 'react';
+import React__default, { ChangeEvent } from 'react';
 import { Editor } from '@tiptap/react';
-export { EditorContent } from '@tiptap/react';
 import { Level } from '@tiptap/extension-heading';
 
-type Props$1 = {
+type Props$2 = {
     placeholder?: string;
     content?: string;
     setContent: (content: string) => void;
-    uploadImage?: () => Promise<string>;
+    uploadImage?: (file: File) => Promise<string>;
 };
-declare function useTipTap({ placeholder, content, setContent, uploadImage, }: Props$1): {
+declare function useTipTap({ placeholder, content, setContent, uploadImage, }: Props$2): {
     editor: Editor;
     menuActions: {
+        hasImageAPI: boolean;
         addImage: () => void;
         currentHeading: 0 | Level;
         fileRef: React.RefObject<HTMLInputElement>;
-        handleSelectImg: ({ target }: ChangeEvent<HTMLInputElement>) => Promise<void>;
+        handleSelectImg: ({ target }: ChangeEvent<HTMLInputElement>) => Promise<undefined>;
     };
     toggles: {
         splitListItem: () => void;
@@ -36,7 +37,7 @@ declare function useTipTap({ placeholder, content, setContent, uploadImage, }: P
     };
 };
 
-type Props = {
+type Props$1 = {
     toggles: {
         toggleHeading: (level: Level) => void;
         toggleNormal: () => void;
@@ -57,10 +58,20 @@ type Props = {
     menuActions: {
         currentHeading: Level | 0;
         addImage: () => void;
-        fileRef: React.RefObject<HTMLInputElement>;
-        handleSelectImg: (e: React.ChangeEvent<HTMLInputElement>) => void;
+        fileRef: React__default.RefObject<HTMLInputElement>;
+        handleSelectImg: (e: React__default.ChangeEvent<HTMLInputElement>) => void;
+        hasImageAPI: boolean;
     };
+    boxStyle?: React__default.CSSProperties;
+    buttonStyle?: React__default.CSSProperties;
+    selectStyle?: React__default.CSSProperties;
 };
-declare function MenuBar({ toggles: { toggleHeading, toggleNormal, toggleBold, toggleItalic, toggleStrike, toggleUnderline, splitListItem, toggleBlockquote, toggleBulletList, toggleOrderedList, toggleCode, toggleTextAlign, toggleHighlight, toggleRedo, toggleUndo, }, menuActions: { currentHeading, addImage, fileRef, handleSelectImg }, }: Props): React.JSX.Element;
+declare function MenuBar({ toggles: { toggleHeading, toggleNormal, toggleBold, toggleItalic, toggleStrike, toggleUnderline, splitListItem, toggleBlockquote, toggleBulletList, toggleOrderedList, toggleCode, toggleTextAlign, toggleHighlight, toggleRedo, toggleUndo, }, menuActions: { currentHeading, addImage, fileRef, handleSelectImg, hasImageAPI, }, boxStyle, buttonStyle, selectStyle, }: Props$1): React__default.JSX.Element;
 
-export { MenuBar, useTipTap };
+type Props = {
+    editor?: Editor;
+    boxStyle: React__default.CSSProperties;
+};
+declare function ContentEditor({ editor, boxStyle }: Props): React__default.JSX.Element;
+
+export { ContentEditor, MenuBar, useTipTap };
