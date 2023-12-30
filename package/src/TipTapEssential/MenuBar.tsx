@@ -169,7 +169,7 @@ export default function MenuBar({
       <button
         onClick={() => toggleTextAlign("justify")}
         style={buttonStyle}
-        title="Justify"
+        title="Align Justify"
       >
         <LuAlignJustify />
       </button>

@@ -1,27 +1,10 @@
 "use strict";
 var __create = Object.create;
 var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
@@ -76,68 +59,44 @@ module.exports = __toCommonJS(src_exports);
 // src/TipTapEssential/useTipTap.ts
 var import_react = require("react");
 var import_react2 = require("@tiptap/react");
-var import_extension_document = __toESM(require("@tiptap/extension-document"));
-var import_extension_paragraph = __toESM(require("@tiptap/extension-paragraph"));
-var import_extension_text = __toESM(require("@tiptap/extension-text"));
-var import_extension_link = __toESM(require("@tiptap/extension-link"));
-var import_extension_bold = __toESM(require("@tiptap/extension-bold"));
 var import_extension_underline = __toESM(require("@tiptap/extension-underline"));
-var import_extension_italic = __toESM(require("@tiptap/extension-italic"));
-var import_extension_strike = __toESM(require("@tiptap/extension-strike"));
-var import_extension_history = __toESM(require("@tiptap/extension-history"));
-var import_extension_heading = __toESM(require("@tiptap/extension-heading"));
 var import_extension_placeholder = __toESM(require("@tiptap/extension-placeholder"));
-var import_extension_code = __toESM(require("@tiptap/extension-code"));
-var import_extension_blockquote = __toESM(require("@tiptap/extension-blockquote"));
-var import_extension_list_item = __toESM(require("@tiptap/extension-list-item"));
-var import_extension_bullet_list = __toESM(require("@tiptap/extension-bullet-list"));
-var import_extension_ordered_list = __toESM(require("@tiptap/extension-ordered-list"));
 var import_extension_image = __toESM(require("@tiptap/extension-image"));
 var import_extension_highlight = __toESM(require("@tiptap/extension-highlight"));
 var import_extension_text_align = __toESM(require("@tiptap/extension-text-align"));
+var import_starter_kit = __toESM(require("@tiptap/starter-kit"));
 function useTipTap({
   placeholder,
-  initValue,
-  onChange,
+  content,
+  setContent,
   uploadImage
 }) {
   const editor = (0, import_react2.useEditor)({
+    content,
     extensions: [
-      import_extension_document.default,
-      import_extension_history.default,
-      import_extension_paragraph.default,
-      import_extension_text.default,
-      import_extension_link.default.configure({
-        openOnClick: false
+      import_starter_kit.default.configure({
+        heading: {
+          levels: [1, 2, 3, 4, 5, 6]
+        }
       }),
-      import_extension_bold.default,
-      import_extension_underline.default,
-      import_extension_italic.default,
-      import_extension_strike.default,
-      import_extension_heading.default,
       import_extension_placeholder.default.configure({
         placeholder: placeholder || ""
       }),
-      import_extension_code.default,
-      import_extension_blockquote.default,
-      import_extension_bullet_list.default,
-      import_extension_ordered_list.default,
-      import_extension_list_item.default,
       import_extension_image.default.configure({
         inline: true
       }),
-      import_extension_highlight.default,
       import_extension_text_align.default.configure({
         types: ["heading", "paragraph"]
-      })
-    ],
-    content: initValue || "<p></p>"
+      }),
+      import_extension_underline.default,
+      import_extension_highlight.default
+    ]
   });
   (0, import_react.useEffect)(() => {
-    if (editor && onChange) {
-      onChange(editor.getHTML());
+    if (editor) {
+      setContent(editor.getHTML());
     }
-  }, [editor, onChange]);
+  }, [editor, setContent]);
   const toggleBold = (0, import_react.useCallback)(() => {
     editor.chain().focus().toggleBold().run();
   }, [editor]);
@@ -353,7 +312,7 @@ function MenuBar({
     {
       onClick: () => toggleTextAlign("justify"),
       style: buttonStyle,
-      title: "Justify"
+      title: "Align Justify"
     },
     /* @__PURE__ */ import_react3.default.createElement(import_lu.LuAlignJustify, null)
   ), /* @__PURE__ */ import_react3.default.createElement(
@@ -377,14 +336,10 @@ function MenuBar({
 }
 
 // src/TipTapEssential/ContentEditor.tsx
-var import_react4 = require("@tiptap/react");
-var import_react5 = __toESM(require("react"));
-function ContentEditor({
-  editor,
-  boxStyle,
-  editorProps
-}) {
-  return /* @__PURE__ */ import_react5.default.createElement("div", { className: "tiptap-editor", style: boxStyle }, editor && /* @__PURE__ */ import_react5.default.createElement(import_react4.EditorContent, __spreadProps(__spreadValues({}, editorProps), { editor })));
+var import_react4 = __toESM(require("react"));
+var import_react5 = require("@tiptap/react");
+function ContentEditor({ editor, boxStyle }) {
+  return /* @__PURE__ */ import_react4.default.createElement("div", { className: "tiptap-editor", style: boxStyle }, editor && /* @__PURE__ */ import_react4.default.createElement(import_react5.EditorContent, { editor }));
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

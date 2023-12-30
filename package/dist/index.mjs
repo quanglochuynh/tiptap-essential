@@ -1,22 +1,3 @@
-var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve, reject) => {
     var fulfilled = (value) => {
@@ -41,68 +22,44 @@ var __async = (__this, __arguments, generator) => {
 // src/TipTapEssential/useTipTap.ts
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useEditor } from "@tiptap/react";
-import Document from "@tiptap/extension-document";
-import Paragraph from "@tiptap/extension-paragraph";
-import Text from "@tiptap/extension-text";
-import Link from "@tiptap/extension-link";
-import Bold from "@tiptap/extension-bold";
 import Underline from "@tiptap/extension-underline";
-import Italic from "@tiptap/extension-italic";
-import Strike from "@tiptap/extension-strike";
-import History from "@tiptap/extension-history";
-import Heading from "@tiptap/extension-heading";
 import Placeholder from "@tiptap/extension-placeholder";
-import Code from "@tiptap/extension-code";
-import Blockquote from "@tiptap/extension-blockquote";
-import ListItem from "@tiptap/extension-list-item";
-import BulletList from "@tiptap/extension-bullet-list";
-import OrderedList from "@tiptap/extension-ordered-list";
 import Image from "@tiptap/extension-image";
 import Highlight from "@tiptap/extension-highlight";
 import TextAlign from "@tiptap/extension-text-align";
+import StarterKit from "@tiptap/starter-kit";
 function useTipTap({
   placeholder,
-  initValue,
-  onChange,
+  content,
+  setContent,
   uploadImage
 }) {
   const editor = useEditor({
+    content,
     extensions: [
-      Document,
-      History,
-      Paragraph,
-      Text,
-      Link.configure({
-        openOnClick: false
+      StarterKit.configure({
+        heading: {
+          levels: [1, 2, 3, 4, 5, 6]
+        }
       }),
-      Bold,
-      Underline,
-      Italic,
-      Strike,
-      Heading,
       Placeholder.configure({
         placeholder: placeholder || ""
       }),
-      Code,
-      Blockquote,
-      BulletList,
-      OrderedList,
-      ListItem,
       Image.configure({
         inline: true
       }),
-      Highlight,
       TextAlign.configure({
         types: ["heading", "paragraph"]
-      })
-    ],
-    content: initValue || "<p></p>"
+      }),
+      Underline,
+      Highlight
+    ]
   });
   useEffect(() => {
-    if (editor && onChange) {
-      onChange(editor.getHTML());
+    if (editor) {
+      setContent(editor.getHTML());
     }
-  }, [editor, onChange]);
+  }, [editor, setContent]);
   const toggleBold = useCallback(() => {
     editor.chain().focus().toggleBold().run();
   }, [editor]);
@@ -336,7 +293,7 @@ function MenuBar({
     {
       onClick: () => toggleTextAlign("justify"),
       style: buttonStyle,
-      title: "Justify"
+      title: "Align Justify"
     },
     /* @__PURE__ */ React.createElement(LuAlignJustify, null)
   ), /* @__PURE__ */ React.createElement(
@@ -360,14 +317,10 @@ function MenuBar({
 }
 
 // src/TipTapEssential/ContentEditor.tsx
-import { EditorContent } from "@tiptap/react";
 import React2 from "react";
-function ContentEditor({
-  editor,
-  boxStyle,
-  editorProps
-}) {
-  return /* @__PURE__ */ React2.createElement("div", { className: "tiptap-editor", style: boxStyle }, editor && /* @__PURE__ */ React2.createElement(EditorContent, __spreadProps(__spreadValues({}, editorProps), { editor })));
+import { EditorContent } from "@tiptap/react";
+function ContentEditor({ editor, boxStyle }) {
+  return /* @__PURE__ */ React2.createElement("div", { className: "tiptap-editor", style: boxStyle }, editor && /* @__PURE__ */ React2.createElement(EditorContent, { editor }));
 }
 export {
   ContentEditor,

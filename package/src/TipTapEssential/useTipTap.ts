@@ -1,76 +1,53 @@
 import { ChangeEvent, useCallback, useEffect, useMemo, useRef } from "react";
 import { useEditor, Editor } from "@tiptap/react";
-import Document from "@tiptap/extension-document";
-import Paragraph from "@tiptap/extension-paragraph";
-import Text from "@tiptap/extension-text";
-import Link from "@tiptap/extension-link";
-import Bold from "@tiptap/extension-bold";
 import Underline from "@tiptap/extension-underline";
-import Italic from "@tiptap/extension-italic";
-import Strike from "@tiptap/extension-strike";
-import History from "@tiptap/extension-history";
-import Heading, { Level } from "@tiptap/extension-heading";
+import { Level } from "@tiptap/extension-heading";
 import Placeholder from "@tiptap/extension-placeholder";
-import Code from "@tiptap/extension-code";
-import Blockquote from "@tiptap/extension-blockquote";
-import ListItem from "@tiptap/extension-list-item";
-import BulletList from "@tiptap/extension-bullet-list";
-import OrderedList from "@tiptap/extension-ordered-list";
 import Image from "@tiptap/extension-image";
 import Highlight from "@tiptap/extension-highlight";
 import TextAlign from "@tiptap/extension-text-align";
+import StarterKit from "@tiptap/starter-kit";
 
 type Props = {
   placeholder?: string;
-  initValue?: string;
-  onChange?: (content: string) => void;
+  content?: string;
+  setContent: (content: string) => void;
   uploadImage?: (file: File) => Promise<string>;
 };
 
 export default function useTipTap({
   placeholder,
-  initValue,
-  onChange,
+  content,
+  setContent,
   uploadImage,
 }: Props) {
   const editor = useEditor({
+    content,
     extensions: [
-      Document,
-      History,
-      Paragraph,
-      Text,
-      Link.configure({
-        openOnClick: false,
+      StarterKit.configure({
+        heading: {
+          levels: [1, 2, 3, 4, 5, 6],
+        },
       }),
-      Bold,
-      Underline,
-      Italic,
-      Strike,
-      Heading,
       Placeholder.configure({
         placeholder: placeholder || "",
       }),
-      Code,
-      Blockquote,
-      BulletList,
-      OrderedList,
-      ListItem,
       Image.configure({
         inline: true,
       }),
-      Highlight,
       TextAlign.configure({
         types: ["heading", "paragraph"],
       }),
+      Underline,
+      Highlight,
     ],
-    content: initValue || "<p></p>",
   }) as Editor;
 
   useEffect(() => {
-    if (editor && onChange) {
-      onChange(editor.getHTML());
+    if (editor) {
+      setContent(editor.getHTML());
     }
-  }, [editor, onChange]);
+  }, [editor, setContent]);
 
   const toggleBold = useCallback(() => {
     editor.chain().focus().toggleBold().run();

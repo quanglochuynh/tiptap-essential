@@ -1,20 +1,15 @@
-import { Editor, EditorContent, EditorContentProps } from "@tiptap/react";
 import React from "react";
+import { Editor, EditorContent } from "@tiptap/react";
 
 type Props = {
   editor?: Editor;
   boxStyle: React.CSSProperties;
-  editorProps?: any;
 };
 
-export default function ContentEditor({
-  editor,
-  boxStyle,
-  editorProps,
-}: Props) {
+export default function ContentEditor({ editor, boxStyle }: Props) {
   return (
     <div className="tiptap-editor" style={boxStyle}>
-      {editor && <EditorContent {...editorProps} editor={editor} />}
+      {editor && <EditorContent editor={editor} />}
     </div>
   );
 }

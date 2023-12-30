@@ -5,11 +5,11 @@ import { Level } from '@tiptap/extension-heading';
 
 type Props$2 = {
     placeholder?: string;
-    initValue?: string;
-    onChange?: (content: string) => void;
+    content?: string;
+    setContent: (content: string) => void;
     uploadImage?: (file: File) => Promise<string>;
 };
-declare function useTipTap({ placeholder, initValue, onChange, uploadImage, }: Props$2): {
+declare function useTipTap({ placeholder, content, setContent, uploadImage, }: Props$2): {
     editor: Editor;
     menuActions: {
         hasImageAPI: boolean;
@@ -71,8 +71,7 @@ declare function MenuBar({ toggles: { toggleHeading, toggleNormal, toggleBold, t
 type Props = {
     editor?: Editor;
     boxStyle: React__default.CSSProperties;
-    editorProps?: any;
 };
-declare function ContentEditor({ editor, boxStyle, editorProps, }: Props): React__default.JSX.Element;
+declare function ContentEditor({ editor, boxStyle }: Props): React__default.JSX.Element;
 
 export { ContentEditor, MenuBar, useTipTap };

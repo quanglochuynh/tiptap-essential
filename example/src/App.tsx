@@ -1,32 +1,20 @@
-import "tiptap-essential/dist/index.css";
-import "./styles.css";
 import { useState } from "react";
 import { useTipTap, MenuBar, ContentEditor } from "tiptap-essential";
 import {} from "react";
 
-export default function App() {
-  const [content, setContent] = useState<string>("<p>Lorem ipsum</p>");
+function App() {
+  const [content, setContent] = useState<string>("<p></p>");
   const { editor, toggles, menuActions } = useTipTap({
     placeholder: "Start typing something...",
-    initValue: content,
-    // onChange: (content) => setContent(content), // Uncomment this line to see the content change in real time
+    content,
+    setContent: (content: string) => setContent(content),
     uploadImage: async (file: File) => {
       console.log(file);
       return "https://picsum.photos/200/300";
     },
   });
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 8,
-        padding: 8,
-        maxWidth: "40rem",
-        margin: "auto",
-        marginTop: "2rem",
-      }}
-    >
+    <>
       <MenuBar
         toggles={toggles}
         menuActions={menuActions}
@@ -34,7 +22,6 @@ export default function App() {
           border: "black 2px solid",
           padding: 8,
           display: "flex",
-          flexWrap: "wrap",
           alignItems: "center",
           gap: 4,
           borderRadius: 8,
@@ -73,13 +60,9 @@ export default function App() {
         editor={editor}
         boxStyle={{ border: "black 2px solid", padding: 4, borderRadius: 8 }}
       />
-      <button
-        className="getHTML-btn"
-        onClick={() => setContent(editor.getHTML())}
-      >
-        Get HTML
-      </button>
-      <p className="html-content">{content}</p>
-    </div>
+      <p>{content}</p>
+    </>
   );
 }
+
+export default App;
