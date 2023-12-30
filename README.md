@@ -1,5 +1,5 @@
 
-# Project Title  
+# React Tiptap Essential
 
 This is an example of an in-depth ReadMe.  
 
