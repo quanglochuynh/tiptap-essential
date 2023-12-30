@@ -129,7 +129,7 @@ export default function useTipTap({
   }, [editor]);
 
   const toggleTextAlign = useCallback(
-    (align: "left" | "center" | "right") => {
+    (align: "left" | "center" | "right" | "justify") => {
       editor.chain().focus().setTextAlign(align).run();
     },
     [editor]

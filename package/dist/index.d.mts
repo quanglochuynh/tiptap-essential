@@ -30,7 +30,7 @@ declare function useTipTap({ placeholder, initValue, onChange, uploadImage, }: P
         toggleBlockquote: () => void;
         toggleBulletList: () => void;
         toggleOrderedList: () => void;
-        toggleTextAlign: (align: "left" | "center" | "right") => void;
+        toggleTextAlign: (align: "left" | "center" | "right" | "justify") => void;
         toggleHighlight: () => void;
         toggleUndo: () => void;
         toggleRedo: () => void;
@@ -50,7 +50,7 @@ type Props$1 = {
         toggleBulletList: () => void;
         toggleOrderedList: () => void;
         toggleCode: () => void;
-        toggleTextAlign: (align: "left" | "center" | "right") => void;
+        toggleTextAlign: (align: "left" | "center" | "right" | "justify") => void;
         toggleHighlight: () => void;
         toggleRedo: () => void;
         toggleUndo: () => void;
@@ -71,7 +71,8 @@ declare function MenuBar({ toggles: { toggleHeading, toggleNormal, toggleBold, t
 type Props = {
     editor?: Editor;
     boxStyle: React__default.CSSProperties;
+    editorProps?: any;
 };
-declare function ContentEditor({ editor, boxStyle }: Props): React__default.JSX.Element;
+declare function ContentEditor({ editor, boxStyle, editorProps, }: Props): React__default.JSX.Element;
 
 export { ContentEditor, MenuBar, useTipTap };

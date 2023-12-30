@@ -20,3 +20,21 @@
   align-items: center;
   align-content: center;
 }
+
+.getHTML-btn {
+  /* margin: 10px; */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+  transition-duration: 200ms;
+}
+
+.getHTML-btn:hover {
+  background-color: #eee;
+}
+
+.html-content {
+  font-family: sans-serif;
+}

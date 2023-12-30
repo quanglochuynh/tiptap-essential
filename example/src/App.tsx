@@ -9,7 +9,7 @@ export default function App() {
   const { editor, toggles, menuActions } = useTipTap({
     placeholder: "Start typing something...",
     initValue: content,
-    // onChange: (content) => setContent(content),
+    // onChange: (content) => setContent(content), // Uncomment this line to see the content change in real time
     uploadImage: async (file: File) => {
       console.log(file);
       return "https://picsum.photos/200/300";
@@ -73,8 +73,13 @@ export default function App() {
         editor={editor}
         boxStyle={{ border: "black 2px solid", padding: 4, borderRadius: 8 }}
       />
-      <p>{content}</p>
-      <button onClick={() => setContent(editor.getHTML())}>Get HTML</button>
+      <button
+        className="getHTML-btn"
+        onClick={() => setContent(editor.getHTML())}
+      >
+        Get HTML
+      </button>
+      <p className="html-content">{content}</p>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import {
   LuAlignCenter,
+  LuAlignJustify,
   LuAlignLeft,
   LuAlignRight,
   LuBold,
@@ -32,7 +33,7 @@ type Props = {
     toggleBulletList: () => void;
     toggleOrderedList: () => void;
     toggleCode: () => void;
-    toggleTextAlign: (align: "left" | "center" | "right") => void;
+    toggleTextAlign: (align: "left" | "center" | "right" | "justify") => void;
     toggleHighlight: () => void;
     toggleRedo: () => void;
     toggleUndo: () => void;
@@ -164,6 +165,13 @@ export default function MenuBar({
         title="Align Right"
       >
         <LuAlignRight />
+      </button>
+      <button
+        onClick={() => toggleTextAlign("justify")}
+        style={buttonStyle}
+        title="Justify"
+      >
+        <LuAlignJustify />
       </button>
       <button
         onClick={() => toggleHighlight()}
