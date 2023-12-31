@@ -13,6 +13,7 @@ type Props = {
   content?: string;
   setContent: (content: string) => void;
   uploadImage?: (file: File) => Promise<string>;
+  test?: boolean;
 };
 
 export default function useTipTap({
@@ -21,7 +22,7 @@ export default function useTipTap({
   setContent,
   uploadImage,
 }: Props) {
-  const editor = useEditor({
+  const editor = new Editor({
     content,
     extensions: [
       StarterKit.configure({
@@ -41,13 +42,13 @@ export default function useTipTap({
       Underline,
       Highlight,
     ],
-  }) as Editor;
+  });
 
   useEffect(() => {
     if (editor) {
       setContent(editor.getHTML());
     }
-  }, [editor, setContent]);
+  }, [editor]);
 
   const toggleBold = useCallback(() => {
     editor.chain().focus().toggleBold().run();

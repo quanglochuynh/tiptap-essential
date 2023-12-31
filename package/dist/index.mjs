@@ -21,7 +21,7 @@ var __async = (__this, __arguments, generator) => {
 
 // src/TipTapEssential/useTipTap.ts
 import { useCallback, useEffect, useMemo, useRef } from "react";
-import { useEditor } from "@tiptap/react";
+import { Editor } from "@tiptap/react";
 import Underline from "@tiptap/extension-underline";
 import Placeholder from "@tiptap/extension-placeholder";
 import Image from "@tiptap/extension-image";
@@ -34,7 +34,7 @@ function useTipTap({
   setContent,
   uploadImage
 }) {
-  const editor = useEditor({
+  const editor = new Editor({
     content,
     extensions: [
       StarterKit.configure({
@@ -59,7 +59,7 @@ function useTipTap({
     if (editor) {
       setContent(editor.getHTML());
     }
-  }, [editor, setContent]);
+  }, [editor]);
   const toggleBold = useCallback(() => {
     editor.chain().focus().toggleBold().run();
   }, [editor]);
@@ -322,8 +322,12 @@ import { EditorContent } from "@tiptap/react";
 function ContentEditor({ editor, boxStyle }) {
   return /* @__PURE__ */ React2.createElement("div", { className: "tiptap-editor", style: boxStyle }, editor && /* @__PURE__ */ React2.createElement(EditorContent, { editor }));
 }
+
+// src/index.ts
+import { EditorContent as EditorContent2 } from "@tiptap/react";
 export {
   ContentEditor,
+  EditorContent2 as EditorContent,
   MenuBar,
   useTipTap
 };

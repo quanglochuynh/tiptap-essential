@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "tsup",
-    "build:link": "tsup && cd ../example && npm link",
+    "build:link": "tsup && cd ../example && npm link tiptap-essential",
     "test": "jest"
   },
   "repository": {

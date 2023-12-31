@@ -51,6 +51,7 @@ var __async = (__this, __arguments, generator) => {
 var src_exports = {};
 __export(src_exports, {
   ContentEditor: () => ContentEditor,
+  EditorContent: () => import_react6.EditorContent,
   MenuBar: () => MenuBar,
   useTipTap: () => useTipTap
 });
@@ -71,7 +72,7 @@ function useTipTap({
   setContent,
   uploadImage
 }) {
-  const editor = (0, import_react2.useEditor)({
+  const editor = new import_react2.Editor({
     content,
     extensions: [
       import_starter_kit.default.configure({
@@ -96,7 +97,7 @@ function useTipTap({
     if (editor) {
       setContent(editor.getHTML());
     }
-  }, [editor, setContent]);
+  }, [editor]);
   const toggleBold = (0, import_react.useCallback)(() => {
     editor.chain().focus().toggleBold().run();
   }, [editor]);
@@ -341,9 +342,13 @@ var import_react5 = require("@tiptap/react");
 function ContentEditor({ editor, boxStyle }) {
   return /* @__PURE__ */ import_react4.default.createElement("div", { className: "tiptap-editor", style: boxStyle }, editor && /* @__PURE__ */ import_react4.default.createElement(import_react5.EditorContent, { editor }));
 }
+
+// src/index.ts
+var import_react6 = require("@tiptap/react");
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   ContentEditor,
+  EditorContent,
   MenuBar,
   useTipTap
 });

@@ -2,8 +2,8 @@ import React from "react";
 import { Editor, EditorContent } from "@tiptap/react";
 
 type Props = {
-  editor?: Editor;
-  boxStyle: React.CSSProperties;
+  editor: Editor | undefined;
+  boxStyle?: React.CSSProperties;
 };
 
 export default function ContentEditor({ editor, boxStyle }: Props) {
