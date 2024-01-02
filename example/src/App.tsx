@@ -15,7 +15,6 @@ function App() {
       return "https://picsum.photos/200/300";
     },
   });
-  console.log(isActive);
 
   return (
     <>
