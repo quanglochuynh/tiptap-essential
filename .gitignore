@@ -3,6 +3,7 @@ example/.DS_Store
 # Node.js
 package/node_modules/*
 example/node_modules/*
+node_modules/*
 npm-debug.log
 yarn-error.log
 

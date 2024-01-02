@@ -1,9 +1,24 @@
 import { useState } from "react";
 import { useTipTap, MenuBar, ContentEditor } from "tiptap-essential";
-import {} from "react";
 import "tiptap-essential/dist/index.css";
 
 const initContent = "<p></p>";
+
+const baseButtonStyle = {
+  backgroundColor: "white",
+  border: "none",
+  width: 32,
+  height: 32,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  cursor: "pointer",
+  marginInline: 4,
+  boxShadow: "0 0 7px 0 rgba(0, 0, 0, 0.2)",
+  borderRadius: 4,
+  color: "#222",
+};
+
 function App() {
   const [content, setContent] = useState<string>(initContent);
   const { editor, toggles, menuActions, isActive } = useTipTap({
@@ -30,33 +45,12 @@ function App() {
           borderRadius: 8,
           marginBottom: 8,
         }}
-        buttonStyle={{
-          backgroundColor: "white",
-          border: "none",
-          width: 32,
-          height: 32,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          cursor: "pointer",
-          marginInline: 4,
-          boxShadow: "0 0 7px 0 rgba(0, 0, 0, 0.2)",
-          borderRadius: 4,
-          color: "#222",
-        }}
+        buttonStyle={baseButtonStyle}
         selectStyle={{
-          backgroundColor: "white",
-          border: "none",
-          height: 32,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          cursor: "pointer",
-          marginInline: 4,
-          paddingInline: 8,
-          boxShadow: "0 0 7px 0 rgba(0, 0, 0, 0.2)",
-          borderRadius: 4,
-          color: "#222",
+          ...baseButtonStyle,
+          width: 96,
+          padding: 0,
+          justifyContent: "flex-start",
         }}
         isActive={isActive}
         activeButtonStyle={{
