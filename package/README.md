@@ -80,10 +80,10 @@ The onChange function is called every time the user changes the content of the e
 ```js
 const App = () => {
   const [content, setContent] = useState<string>(initContent);
-  const { editor, menuBar } = useTipTap({
+  const { editor, toggles, menuActions, isActive } = useTipTap({
     placeholder: "Start typing something...",             // optional
     initContent: `<p></p>`,                               // optional
-    onChange: (content: string) => setContent(content),   // required
+    onChange: (content: string) => setContent(content),   // REQUIRED
     uploadImage: async (file: File) => {                  // optional     
       // Write your own async image upload function here. 
       // The function is expected to return the image URL.
@@ -94,7 +94,10 @@ const App = () => {
 
   return (
     <div className="App">
-      <MenuBar menuBar={menuBar} />
+      <MenuBar 
+        toggles={toggles} 
+        menuActions={menuActions} 
+        isActive={isActive} />
       <ContentEditor editor={editor} />
       <p>{content}<p/>
     </div>
