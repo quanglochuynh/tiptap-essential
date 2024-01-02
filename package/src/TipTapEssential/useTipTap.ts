@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback, useEffect, useMemo, useRef } from "react";
-import { useEditor, Editor } from "@tiptap/react";
+import { useEditor } from "@tiptap/react";
 import Underline from "@tiptap/extension-underline";
 import { Level } from "@tiptap/extension-heading";
 import Placeholder from "@tiptap/extension-placeholder";
@@ -7,6 +7,7 @@ import Image from "@tiptap/extension-image";
 import Highlight from "@tiptap/extension-highlight";
 import TextAlign from "@tiptap/extension-text-align";
 import StarterKit from "@tiptap/starter-kit";
+import { Editor } from "@tiptap/core";
 
 type Props = {
   placeholder?: string;
@@ -19,11 +20,12 @@ type Props = {
 export default function useTipTap({
   placeholder,
   content,
+  test,
   setContent,
   uploadImage,
 }: Props) {
-  const editor = new Editor({
-    content,
+  const editor = useEditor({
+    content: content || "",
     extensions: [
       StarterKit.configure({
         heading: {
@@ -42,13 +44,13 @@ export default function useTipTap({
       Underline,
       Highlight,
     ],
-  });
+  }) as Editor;
 
   useEffect(() => {
     if (editor) {
       setContent(editor.getHTML());
     }
-  }, [editor]);
+  }, [editor, setContent]);
 
   const toggleBold = useCallback(() => {
     editor.chain().focus().toggleBold().run();

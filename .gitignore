@@ -1,14 +1,14 @@
 example/.DS_Store
 
 # Node.js
-package/node_modules/
-example/node_modules/
+package/node_modules/*
+example/node_modules/*
 npm-debug.log
 yarn-error.log
 
 # Build
 build/
-dist/
+package/dist/
 
 # IDE
 .vscode/

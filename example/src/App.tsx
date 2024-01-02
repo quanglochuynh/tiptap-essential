@@ -1,15 +1,20 @@
 import { useState } from "react";
-import { useTipTap, MenuBar, EditorContent } from "tiptap-essential";
-import {} from "react";
+import { useTipTap, MenuBar, ContentEditor } from "tiptap-essential";
+import "tiptap-essential/dist/index.css";
 
 function App() {
   const [content, setContent] = useState<string>("<p></p>");
   const { editor, menuActions, toggles } = useTipTap({
-    setContent,
+    setContent: (str) => {
+      setContent(str);
+    },
+    content,
+    test: true,
+    uploadImage: async () => {
+      return "https://picsum.photos/200/300";
+    },
   });
-  console.log(editor);
 
-  // if (!editor) return <></>;
   return (
     <>
       <MenuBar
@@ -53,12 +58,10 @@ function App() {
           color: "#222",
         }}
       />
-      {/* {editor && <ContentEditor editor={editor} />} */}
-      {/* <ContentEditor
-        // editor={editor}
+      <ContentEditor
+        editor={editor}
         boxStyle={{ border: "black 2px solid", padding: 4, borderRadius: 8 }}
-      /> */}
-      {editor && <EditorContent editor={editor} />}
+      />
       <p>{content}</p>
     </>
   );
