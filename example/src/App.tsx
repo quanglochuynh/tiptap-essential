@@ -1,18 +1,22 @@
 import { useState } from "react";
 import { useTipTap, MenuBar, ContentEditor } from "tiptap-essential";
 import {} from "react";
+import "tiptap-essential/dist/index.css";
 
+const initContent = "<p></p>";
 function App() {
-  const [content, setContent] = useState<string>("<p></p>");
-  const { editor, toggles, menuActions } = useTipTap({
+  const [content, setContent] = useState<string>(initContent);
+  const { editor, toggles, menuActions, isActive } = useTipTap({
     placeholder: "Start typing something...",
-    content,
-    setContent: (content: string) => setContent(content),
+    initContent,
+    onChange: (content: string) => setContent(content),
     uploadImage: async (file: File) => {
       console.log(file);
       return "https://picsum.photos/200/300";
     },
   });
+  console.log(isActive);
+
   return (
     <>
       <MenuBar
@@ -54,6 +58,11 @@ function App() {
           boxShadow: "0 0 7px 0 rgba(0, 0, 0, 0.2)",
           borderRadius: 4,
           color: "#222",
+        }}
+        isActive={isActive}
+        activeButtonStyle={{
+          backgroundColor: "#222",
+          color: "white",
         }}
       />
       <ContentEditor

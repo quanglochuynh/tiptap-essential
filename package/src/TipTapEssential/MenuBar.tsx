@@ -45,8 +45,20 @@ type Props = {
     handleSelectImg: (e: React.ChangeEvent<HTMLInputElement>) => void;
     hasImageAPI: boolean;
   };
+  isActive: {
+    isBold: boolean;
+    isItalic: boolean;
+    isStrike: boolean;
+    isUnderline: boolean;
+    isBlockquote: boolean;
+    isBulletList: boolean;
+    isOrderedList: boolean;
+    isCode: boolean;
+    isHighlight: boolean;
+  };
   boxStyle?: React.CSSProperties;
   buttonStyle?: React.CSSProperties;
+  activeButtonStyle?: React.CSSProperties;
   selectStyle?: React.CSSProperties;
 };
 
@@ -75,7 +87,19 @@ export default function MenuBar({
     handleSelectImg,
     hasImageAPI,
   },
+  isActive: {
+    isBold,
+    isItalic,
+    isStrike,
+    isUnderline,
+    isBlockquote,
+    isBulletList,
+    isOrderedList,
+    isCode,
+    isHighlight,
+  },
   boxStyle,
+  activeButtonStyle,
   buttonStyle,
   selectStyle,
 }: Props) {
@@ -87,16 +111,38 @@ export default function MenuBar({
       <button onClick={toggleRedo} style={buttonStyle} title="Redo">
         <LuRedo />
       </button>
-      <button onClick={toggleBold} style={buttonStyle} title="Bold">
+      <button
+        onClick={toggleBold}
+        style={!isBold ? buttonStyle : { ...buttonStyle, ...activeButtonStyle }}
+        title="Bold"
+      >
         <LuBold />
       </button>
-      <button onClick={toggleItalic} style={buttonStyle} title="Italic">
+      <button
+        onClick={toggleItalic}
+        style={
+          !isItalic ? buttonStyle : { ...buttonStyle, ...activeButtonStyle }
+        }
+        title="Italic"
+      >
         <LuItalic />
       </button>
-      <button onClick={toggleStrike} style={buttonStyle} title="Strike">
+      <button
+        onClick={toggleStrike}
+        style={
+          !isStrike ? buttonStyle : { ...buttonStyle, ...activeButtonStyle }
+        }
+        title="Strike"
+      >
         <LuStrikethrough />
       </button>
-      <button onClick={toggleUnderline} style={buttonStyle} title="Underline">
+      <button
+        onClick={toggleUnderline}
+        style={
+          !isUnderline ? buttonStyle : { ...buttonStyle, ...activeButtonStyle }
+        }
+        title="Underline"
+      >
         <LuUnderline />
       </button>
       <select
@@ -118,22 +164,38 @@ export default function MenuBar({
           </option>
         ))}
       </select>
-      <button onClick={toggleCode} style={buttonStyle} title="Code">
+      <button
+        onClick={toggleCode}
+        style={!isCode ? buttonStyle : { ...buttonStyle, ...activeButtonStyle }}
+        title="Code"
+      >
         <LuCode />
       </button>
-      <button onClick={toggleBlockquote} style={buttonStyle} title="Blockquote">
+      <button
+        onClick={toggleBlockquote}
+        style={
+          !isBlockquote ? buttonStyle : { ...buttonStyle, ...activeButtonStyle }
+        }
+        title="Blockquote"
+      >
         <LuQuote />
       </button>
       <button
         onClick={toggleBulletList}
-        style={buttonStyle}
+        style={
+          !isBulletList ? buttonStyle : { ...buttonStyle, ...activeButtonStyle }
+        }
         title="Bullet List"
       >
         <LuList />
       </button>
       <button
         onClick={toggleOrderedList}
-        style={buttonStyle}
+        style={
+          !isOrderedList
+            ? buttonStyle
+            : { ...buttonStyle, ...activeButtonStyle }
+        }
         title="Ordered List"
       >
         <LuListOrdered />
@@ -175,7 +237,9 @@ export default function MenuBar({
       </button>
       <button
         onClick={() => toggleHighlight()}
-        style={buttonStyle}
+        style={
+          !isHighlight ? buttonStyle : { ...buttonStyle, ...activeButtonStyle }
+        }
         title="Highlight"
       >
         <LuHighlighter />

@@ -5,12 +5,11 @@ import { Level } from '@tiptap/extension-heading';
 
 type Props$2 = {
     placeholder?: string;
-    content?: string;
-    setContent: (content: string) => void;
+    initContent?: string;
+    onChange: (content: string) => void;
     uploadImage?: (file: File) => Promise<string>;
-    test?: boolean;
 };
-declare function useTipTap({ placeholder, content, test, setContent, uploadImage, }: Props$2): {
+declare function useTipTap({ placeholder, initContent, onChange, uploadImage, }: Props$2): {
     editor: Editor;
     menuActions: {
         hasImageAPI: boolean;
@@ -35,6 +34,21 @@ declare function useTipTap({ placeholder, content, test, setContent, uploadImage
         toggleHighlight: () => void;
         toggleUndo: () => void;
         toggleRedo: () => void;
+    };
+    isActive: {
+        isBold: boolean;
+        isUnderline: boolean;
+        isItalic: boolean;
+        isStrike: boolean;
+        isCode: boolean;
+        isBlockquote: boolean;
+        isBulletList: boolean;
+        isOrderedList: boolean;
+        isHighlight: boolean;
+        isLeftAlign: boolean;
+        isCenterAlign: boolean;
+        isRightAlign: boolean;
+        isJustifyAlign: boolean;
     };
 };
 
@@ -63,11 +77,23 @@ type Props$1 = {
         handleSelectImg: (e: React__default.ChangeEvent<HTMLInputElement>) => void;
         hasImageAPI: boolean;
     };
+    isActive: {
+        isBold: boolean;
+        isItalic: boolean;
+        isStrike: boolean;
+        isUnderline: boolean;
+        isBlockquote: boolean;
+        isBulletList: boolean;
+        isOrderedList: boolean;
+        isCode: boolean;
+        isHighlight: boolean;
+    };
     boxStyle?: React__default.CSSProperties;
     buttonStyle?: React__default.CSSProperties;
+    activeButtonStyle?: React__default.CSSProperties;
     selectStyle?: React__default.CSSProperties;
 };
-declare function MenuBar({ toggles: { toggleHeading, toggleNormal, toggleBold, toggleItalic, toggleStrike, toggleUnderline, splitListItem, toggleBlockquote, toggleBulletList, toggleOrderedList, toggleCode, toggleTextAlign, toggleHighlight, toggleRedo, toggleUndo, }, menuActions: { currentHeading, addImage, fileRef, handleSelectImg, hasImageAPI, }, boxStyle, buttonStyle, selectStyle, }: Props$1): React__default.JSX.Element;
+declare function MenuBar({ toggles: { toggleHeading, toggleNormal, toggleBold, toggleItalic, toggleStrike, toggleUnderline, splitListItem, toggleBlockquote, toggleBulletList, toggleOrderedList, toggleCode, toggleTextAlign, toggleHighlight, toggleRedo, toggleUndo, }, menuActions: { currentHeading, addImage, fileRef, handleSelectImg, hasImageAPI, }, isActive: { isBold, isItalic, isStrike, isUnderline, isBlockquote, isBulletList, isOrderedList, isCode, isHighlight, }, boxStyle, activeButtonStyle, buttonStyle, selectStyle, }: Props$1): React__default.JSX.Element;
 
 type Props = {
     editor: Editor | undefined;

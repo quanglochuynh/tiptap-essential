@@ -3,8 +3,22 @@ var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
@@ -67,13 +81,12 @@ var import_extension_text_align = __toESM(require("@tiptap/extension-text-align"
 var import_starter_kit = __toESM(require("@tiptap/starter-kit"));
 function useTipTap({
   placeholder,
-  content,
-  test,
-  setContent,
+  initContent,
+  onChange,
   uploadImage
 }) {
   const editor = (0, import_react2.useEditor)({
-    content: content || "",
+    content: initContent || "",
     extensions: [
       import_starter_kit.default.configure({
         heading: {
@@ -95,9 +108,9 @@ function useTipTap({
   });
   (0, import_react.useEffect)(() => {
     if (editor) {
-      setContent(editor.getHTML());
+      onChange(editor.getHTML());
     }
-  }, [editor, setContent]);
+  }, [editor, onChange]);
   const toggleBold = (0, import_react.useCallback)(() => {
     editor.chain().focus().toggleBold().run();
   }, [editor]);
@@ -208,6 +221,21 @@ function useTipTap({
       toggleHighlight,
       toggleUndo,
       toggleRedo
+    },
+    isActive: {
+      isBold: editor ? editor.isActive("bold") : false,
+      isUnderline: editor ? editor.isActive("underline") : false,
+      isItalic: editor ? editor.isActive("italic") : false,
+      isStrike: editor ? editor.isActive("strike") : false,
+      isCode: editor ? editor.isActive("code") : false,
+      isBlockquote: editor ? editor.isActive("blockquote") : false,
+      isBulletList: editor ? editor.isActive("bulletList") : false,
+      isOrderedList: editor ? editor.isActive("orderedList") : false,
+      isHighlight: editor ? editor.isActive("highlight") : false,
+      isLeftAlign: editor ? editor.isActive("textAlign", { align: "left" }) : false,
+      isCenterAlign: editor ? editor.isActive("textAlign", { align: "center" }) : false,
+      isRightAlign: editor ? editor.isActive("textAlign", { align: "right" }) : false,
+      isJustifyAlign: editor ? editor.isActive("textAlign", { align: "justify" }) : false
     }
   };
 }
@@ -240,11 +268,55 @@ function MenuBar({
     handleSelectImg,
     hasImageAPI
   },
+  isActive: {
+    isBold,
+    isItalic,
+    isStrike,
+    isUnderline,
+    isBlockquote,
+    isBulletList,
+    isOrderedList,
+    isCode,
+    isHighlight
+  },
   boxStyle,
+  activeButtonStyle,
   buttonStyle,
   selectStyle
 }) {
-  return /* @__PURE__ */ import_react3.default.createElement("div", { className: "tiptap-menu", style: boxStyle }, /* @__PURE__ */ import_react3.default.createElement("button", { onClick: toggleUndo, style: buttonStyle, title: "Undo" }, /* @__PURE__ */ import_react3.default.createElement(import_lu.LuUndo, null)), /* @__PURE__ */ import_react3.default.createElement("button", { onClick: toggleRedo, style: buttonStyle, title: "Redo" }, /* @__PURE__ */ import_react3.default.createElement(import_lu.LuRedo, null)), /* @__PURE__ */ import_react3.default.createElement("button", { onClick: toggleBold, style: buttonStyle, title: "Bold" }, /* @__PURE__ */ import_react3.default.createElement(import_lu.LuBold, null)), /* @__PURE__ */ import_react3.default.createElement("button", { onClick: toggleItalic, style: buttonStyle, title: "Italic" }, /* @__PURE__ */ import_react3.default.createElement(import_lu.LuItalic, null)), /* @__PURE__ */ import_react3.default.createElement("button", { onClick: toggleStrike, style: buttonStyle, title: "Strike" }, /* @__PURE__ */ import_react3.default.createElement(import_lu.LuStrikethrough, null)), /* @__PURE__ */ import_react3.default.createElement("button", { onClick: toggleUnderline, style: buttonStyle, title: "Underline" }, /* @__PURE__ */ import_react3.default.createElement(import_lu.LuUnderline, null)), /* @__PURE__ */ import_react3.default.createElement(
+  return /* @__PURE__ */ import_react3.default.createElement("div", { className: "tiptap-menu", style: boxStyle }, /* @__PURE__ */ import_react3.default.createElement("button", { onClick: toggleUndo, style: buttonStyle, title: "Undo" }, /* @__PURE__ */ import_react3.default.createElement(import_lu.LuUndo, null)), /* @__PURE__ */ import_react3.default.createElement("button", { onClick: toggleRedo, style: buttonStyle, title: "Redo" }, /* @__PURE__ */ import_react3.default.createElement(import_lu.LuRedo, null)), /* @__PURE__ */ import_react3.default.createElement(
+    "button",
+    {
+      onClick: toggleBold,
+      style: !isBold ? buttonStyle : __spreadValues(__spreadValues({}, buttonStyle), activeButtonStyle),
+      title: "Bold"
+    },
+    /* @__PURE__ */ import_react3.default.createElement(import_lu.LuBold, null)
+  ), /* @__PURE__ */ import_react3.default.createElement(
+    "button",
+    {
+      onClick: toggleItalic,
+      style: !isItalic ? buttonStyle : __spreadValues(__spreadValues({}, buttonStyle), activeButtonStyle),
+      title: "Italic"
+    },
+    /* @__PURE__ */ import_react3.default.createElement(import_lu.LuItalic, null)
+  ), /* @__PURE__ */ import_react3.default.createElement(
+    "button",
+    {
+      onClick: toggleStrike,
+      style: !isStrike ? buttonStyle : __spreadValues(__spreadValues({}, buttonStyle), activeButtonStyle),
+      title: "Strike"
+    },
+    /* @__PURE__ */ import_react3.default.createElement(import_lu.LuStrikethrough, null)
+  ), /* @__PURE__ */ import_react3.default.createElement(
+    "button",
+    {
+      onClick: toggleUnderline,
+      style: !isUnderline ? buttonStyle : __spreadValues(__spreadValues({}, buttonStyle), activeButtonStyle),
+      title: "Underline"
+    },
+    /* @__PURE__ */ import_react3.default.createElement(import_lu.LuUnderline, null)
+  ), /* @__PURE__ */ import_react3.default.createElement(
     "select",
     {
       title: "Heading",
@@ -260,11 +332,27 @@ function MenuBar({
     },
     /* @__PURE__ */ import_react3.default.createElement("option", { value: 0 }, "Normal"),
     Array.from(Array(6).keys()).map((_, index) => /* @__PURE__ */ import_react3.default.createElement("option", { key: index, value: index + 1 }, "Heading ", index + 1))
-  ), /* @__PURE__ */ import_react3.default.createElement("button", { onClick: toggleCode, style: buttonStyle, title: "Code" }, /* @__PURE__ */ import_react3.default.createElement(import_lu.LuCode, null)), /* @__PURE__ */ import_react3.default.createElement("button", { onClick: toggleBlockquote, style: buttonStyle, title: "Blockquote" }, /* @__PURE__ */ import_react3.default.createElement(import_lu.LuQuote, null)), /* @__PURE__ */ import_react3.default.createElement(
+  ), /* @__PURE__ */ import_react3.default.createElement(
+    "button",
+    {
+      onClick: toggleCode,
+      style: !isCode ? buttonStyle : __spreadValues(__spreadValues({}, buttonStyle), activeButtonStyle),
+      title: "Code"
+    },
+    /* @__PURE__ */ import_react3.default.createElement(import_lu.LuCode, null)
+  ), /* @__PURE__ */ import_react3.default.createElement(
+    "button",
+    {
+      onClick: toggleBlockquote,
+      style: !isBlockquote ? buttonStyle : __spreadValues(__spreadValues({}, buttonStyle), activeButtonStyle),
+      title: "Blockquote"
+    },
+    /* @__PURE__ */ import_react3.default.createElement(import_lu.LuQuote, null)
+  ), /* @__PURE__ */ import_react3.default.createElement(
     "button",
     {
       onClick: toggleBulletList,
-      style: buttonStyle,
+      style: !isBulletList ? buttonStyle : __spreadValues(__spreadValues({}, buttonStyle), activeButtonStyle),
       title: "Bullet List"
     },
     /* @__PURE__ */ import_react3.default.createElement(import_lu.LuList, null)
@@ -272,7 +360,7 @@ function MenuBar({
     "button",
     {
       onClick: toggleOrderedList,
-      style: buttonStyle,
+      style: !isOrderedList ? buttonStyle : __spreadValues(__spreadValues({}, buttonStyle), activeButtonStyle),
       title: "Ordered List"
     },
     /* @__PURE__ */ import_react3.default.createElement(import_lu.LuListOrdered, null)
@@ -320,7 +408,7 @@ function MenuBar({
     "button",
     {
       onClick: () => toggleHighlight(),
-      style: buttonStyle,
+      style: !isHighlight ? buttonStyle : __spreadValues(__spreadValues({}, buttonStyle), activeButtonStyle),
       title: "Highlight"
     },
     /* @__PURE__ */ import_react3.default.createElement(import_lu.LuHighlighter, null)

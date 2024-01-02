@@ -10,21 +10,19 @@ import StarterKit from "@tiptap/starter-kit";
 
 type Props = {
   placeholder?: string;
-  content?: string;
-  setContent: (content: string) => void;
+  initContent?: string;
+  onChange: (content: string) => void;
   uploadImage?: (file: File) => Promise<string>;
-  test?: boolean;
 };
 
 export default function useTipTap({
   placeholder,
-  content,
-  test,
-  setContent,
+  initContent,
+  onChange,
   uploadImage,
 }: Props) {
   const editor = useEditor({
-    content: content || "",
+    content: initContent || "",
     extensions: [
       StarterKit.configure({
         heading: {
@@ -47,9 +45,9 @@ export default function useTipTap({
 
   useEffect(() => {
     if (editor) {
-      setContent(editor.getHTML());
+      onChange(editor.getHTML());
     }
-  }, [editor, setContent]);
+  }, [editor, onChange]);
 
   const toggleBold = useCallback(() => {
     editor.chain().focus().toggleBold().run();
@@ -177,6 +175,29 @@ export default function useTipTap({
       toggleHighlight,
       toggleUndo,
       toggleRedo,
+    },
+    isActive: {
+      isBold: editor ? editor.isActive("bold") : false,
+      isUnderline: editor ? editor.isActive("underline") : false,
+      isItalic: editor ? editor.isActive("italic") : false,
+      isStrike: editor ? editor.isActive("strike") : false,
+      isCode: editor ? editor.isActive("code") : false,
+      isBlockquote: editor ? editor.isActive("blockquote") : false,
+      isBulletList: editor ? editor.isActive("bulletList") : false,
+      isOrderedList: editor ? editor.isActive("orderedList") : false,
+      isHighlight: editor ? editor.isActive("highlight") : false,
+      isLeftAlign: editor
+        ? editor.isActive("textAlign", { align: "left" })
+        : false,
+      isCenterAlign: editor
+        ? editor.isActive("textAlign", { align: "center" })
+        : false,
+      isRightAlign: editor
+        ? editor.isActive("textAlign", { align: "right" })
+        : false,
+      isJustifyAlign: editor
+        ? editor.isActive("textAlign", { align: "justify" })
+        : false,
     },
   };
 }
