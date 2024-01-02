@@ -1,7 +1,7 @@
 
 # Tiptap Essential
 
-Tiptap Essential is a React component that provides a simple and easy to use WYSIWYG editor. It is built on top of [tiptap-rich-text-editor](https://www.tiptap.dev/). The implementation process to your project is expected not to take more than 5 minutes.
+Tiptap Essential is an instant React component that provides a simple and easy to customize Rich-text editor. It is built on top of [tiptap-rich-text-editor](https://www.tiptap.dev/). The implementation process to your project is expected not to take more than 5 minutes.
 
 ## License  
 
@@ -9,12 +9,16 @@ Tiptap Essential is a React component that provides a simple and easy to use WYS
 
 # Table of contents  
 
-1. [Screenshots](#screenshots)
-2. [Installation](#installation)  
-3. [Usage](#usage)  
+1. [Example](#example)  
+2. [Screenshots](#screenshots)
+3. [Installation](#installation)  
+4. [Usage](#usage)  
     1. [Basic](#basic)
     2. [Customization](#customization)
-4. [Example](#example)  
+
+## Example
+
+[CodeSandbox](https://codesandbox.io/p/sandbox/tiptap-essential-example-h3snqw)
 
 ## Screenshots  
 
@@ -48,6 +52,8 @@ Tiptap Essential is a React component that provides a simple and easy to use WYS
 
 ### Basic
 
+After install the package and its peer dependencies, you can use the components as below:
+
 #### 1. Import the components
 
 ```js
@@ -55,16 +61,30 @@ import { useTipTap, MenuBar, ContentEditor } from "tiptap-essential";
 import "tiptap-essential/dist/index.css";
 ```
 
+Open the index.css file and copy the content to your own CSS file. Feel free to customize the CSS.
+
 #### 2. Use the components
 
 ```js
 const App = () => {
-  const { editor, menuBar } = useTipTap();
+  const [content, setContent] = useState<string>(initContent);
+  const { editor, menuBar } = useTipTap({
+    placeholder: "Start typing something...",             // optional
+    initContent: `<p></p>`,                               // optional
+    onChange: (content: string) => setContent(content),   // required
+    uploadImage: async (file: File) => {                  // optional     
+      // Write your own async image upload function here. 
+      // The function is expected to return the image URL.
+      console.log(file);
+      return "https://picsum.photos/200/300";
+    },
+  });
 
   return (
     <div className="App">
       <MenuBar menuBar={menuBar} />
       <ContentEditor editor={editor} />
+      <p>{content}<p/>
     </div>
   );
 };
@@ -177,6 +197,18 @@ e.g.
 }
 ```
 
-## Example
+### Features to be added in the future
 
-[CodeSandbox](https://codesandbox.io/p/sandbox/tiptap-essential-example-h3snqw)
+- [ ] Add text color picker
+- [ ] Add text background color picker
+- [ ] Add text font size picker
+- [ ] Add text font family picker
+
+## Authors
+
+Loc Q. Huynh
+[Personal website](https://locqhuynh.tech)
+Contact for work:
+
+- [ ] Email: <contact@locqhuynh.tech>
+- [ ] Facebook: <https://www.facebook.com/locqhuynh/>
