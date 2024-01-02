@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback, useEffect, useMemo, useRef } from "react";
-import { useEditor } from "@tiptap/react";
+import { useEditor, Editor } from "@tiptap/react";
 import Underline from "@tiptap/extension-underline";
 import { Level } from "@tiptap/extension-heading";
 import Placeholder from "@tiptap/extension-placeholder";
@@ -7,7 +7,6 @@ import Image from "@tiptap/extension-image";
 import Highlight from "@tiptap/extension-highlight";
 import TextAlign from "@tiptap/extension-text-align";
 import StarterKit from "@tiptap/starter-kit";
-import { Editor } from "@tiptap/core";
 
 type Props = {
   placeholder?: string;

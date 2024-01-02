@@ -1,20 +1,18 @@
 import { useState } from "react";
 import { useTipTap, MenuBar, ContentEditor } from "tiptap-essential";
-import "tiptap-essential/dist/index.css";
+import {} from "react";
 
 function App() {
   const [content, setContent] = useState<string>("<p></p>");
-  const { editor, menuActions, toggles } = useTipTap({
-    setContent: (str) => {
-      setContent(str);
-    },
+  const { editor, toggles, menuActions } = useTipTap({
+    placeholder: "Start typing something...",
     content,
-    test: true,
-    uploadImage: async () => {
+    setContent: (content: string) => setContent(content),
+    uploadImage: async (file: File) => {
+      console.log(file);
       return "https://picsum.photos/200/300";
     },
   });
-
   return (
     <>
       <MenuBar

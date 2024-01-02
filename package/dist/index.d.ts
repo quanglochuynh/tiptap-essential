@@ -1,8 +1,7 @@
 import * as React from 'react';
 import React__default, { ChangeEvent } from 'react';
+import { Editor } from '@tiptap/react';
 import { Level } from '@tiptap/extension-heading';
-import { Editor } from '@tiptap/core';
-import { Editor as Editor$1 } from '@tiptap/react';
 
 type Props$2 = {
     placeholder?: string;
@@ -71,7 +70,7 @@ type Props$1 = {
 declare function MenuBar({ toggles: { toggleHeading, toggleNormal, toggleBold, toggleItalic, toggleStrike, toggleUnderline, splitListItem, toggleBlockquote, toggleBulletList, toggleOrderedList, toggleCode, toggleTextAlign, toggleHighlight, toggleRedo, toggleUndo, }, menuActions: { currentHeading, addImage, fileRef, handleSelectImg, hasImageAPI, }, boxStyle, buttonStyle, selectStyle, }: Props$1): React__default.JSX.Element;
 
 type Props = {
-    editor: Editor$1 | undefined;
+    editor: Editor | undefined;
     boxStyle?: React__default.CSSProperties;
 };
 declare function ContentEditor({ editor, boxStyle }: Props): React__default.JSX.Element;
