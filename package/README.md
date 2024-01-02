@@ -25,11 +25,7 @@ Tiptap Essential is a React component that provides a simple and easy to use WYS
 - Tiptap-essential
 
 ```bash  
-  npm install tiptap-essential@latest
-```
-
-```bash  
-  npm install tiptap-essential@latest --save
+  npm install tiptap-essential
 ```
 
 - Peer dependencies:
@@ -105,6 +101,7 @@ const baseButtonStyle = {
     border: "black 2px solid",
     padding: 8,
     display: "flex",
+    flexWrap: "wrap",
     alignItems: "center",
     gap: 4,
     borderRadius: 8,
@@ -158,6 +155,26 @@ const uploadImage = async (file) => {
   const data = await response.json();
   return data.url;
 };
+```
+
+#### 5. Customize the editor content CSS (optional)
+
+Instead of using the default CSS, you can import your own CSS file.
+
+e.g.
+
+```css
+.ProseMirror {
+  min-height: 6rem;
+}
+
+.editor-mini .ProseMirror {
+  padding-top: 8px;
+}
+
+.ProseMirror-focused {
+  border: 2px solid #222;
+}
 ```
 
 ## Example

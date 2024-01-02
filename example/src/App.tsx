@@ -40,6 +40,7 @@ function App() {
           border: "black 2px solid",
           padding: 8,
           display: "flex",
+          flexWrap: "wrap",
           alignItems: "center",
           gap: 4,
           borderRadius: 8,
