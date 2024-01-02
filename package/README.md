@@ -219,7 +219,9 @@ e.g.
 ## Authors
 
 Loc Q. Huynh
+
 [Personal website](https://locqhuynh.tech)
+
 Contact for work:
 
 - [ ] Email: <contact@locqhuynh.tech>
