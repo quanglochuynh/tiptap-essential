@@ -1,11 +1,10 @@
 
-# React Tiptap Essential
+# Tiptap Essential
 
-This is an example of an in-depth ReadMe.  
+Tiptap Essential is a React component that provides a simple and easy to use WYSIWYG editor. It is built on top of [tiptap](https://www.tiptap.dev/).
 
 ## License  
 
-Add badges from somewhere like: [shields.io](https://shields.io/)  
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)  
 
 # Table of contents  
@@ -19,15 +18,16 @@ Add badges from somewhere like: [shields.io](https://shields.io/)
 
 ## Screenshots  
 
-![App Screenshot](https://lanecdr.org/wp-content/uploads/2019/08/placeholder.png)
+![App Screenshot](./Screenshot%202023-12-30%20at%2014.44.45.png)
 
-## Installation 
+## Installation
 
 - NPM  
 
 ```bash  
   npm install tiptap-essential@latest
 ```
+
 - Yarn  
 
 ```bash  
