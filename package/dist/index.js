@@ -107,7 +107,7 @@ function useTipTap({
     ]
   });
   (0, import_react.useEffect)(() => {
-    if (editor) {
+    if (editor && onChange) {
       onChange(editor.getHTML());
     }
   }, [editor, onChange]);
