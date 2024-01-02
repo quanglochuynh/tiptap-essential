@@ -36,6 +36,7 @@ function App() {
       <MenuBar
         toggles={toggles}
         menuActions={menuActions}
+        isActive={isActive}
         boxStyle={{
           border: "black 2px solid",
           padding: 8,
@@ -53,7 +54,6 @@ function App() {
           padding: 0,
           justifyContent: "flex-start",
         }}
-        isActive={isActive}
         activeButtonStyle={{
           backgroundColor: "#222",
           color: "white",

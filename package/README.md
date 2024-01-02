@@ -1,6 +1,8 @@
 
 # Tiptap Essential
 
+Vietnamese version: [README_Vietnamese.md](./README_Vietnamese.md)
+
 Tiptap Essential is an instant React component that provides a simple and easy to customize Rich-text editor. It is built on top of [tiptap-rich-text-editor](https://www.tiptap.dev/). The implementation process to your project is expected not to take more than 5 minutes.
 
 ## License  
@@ -64,6 +66,16 @@ import "tiptap-essential/dist/index.css";
 Open the index.css file and copy the content to your own CSS file. Feel free to customize the CSS.
 
 #### 2. Use the components
+
+Conponents:
+
+- MenuBar: the menu bar that contains the menu buttons
+- ContentEditor: the rich-text editor
+- useTipTap: the hook to use the editor functionalities:
+  - editor: the tiptap editor object
+  - menuActions, isActive and toggles: the values to be displayed on the menu bar
+
+The onChange function is called every time the user changes the content of the editor. It takes a parameter which is the HTML content of the editor.
 
 ```js
 const App = () => {
