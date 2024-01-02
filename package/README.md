@@ -50,14 +50,14 @@ Tiptap Essential is a React component that provides a simple and easy to use WYS
 
 #### 1. Import the components
 
-```javascript-react
+```js
 import { useTipTap, MenuBar, ContentEditor } from "tiptap-essential";
 import "tiptap-essential/dist/index.css";
 ```
 
 #### 2. Use the components
 
-```javascript-react
+```js
 const App = () => {
   const { editor, menuBar } = useTipTap();
 
@@ -74,7 +74,7 @@ const App = () => {
 
 #### 1. Declare a base button style
 
-```javascript-react
+```js
 const baseButtonStyle = {
   backgroundColor: "white",
   border: "none",
@@ -93,7 +93,7 @@ const baseButtonStyle = {
 
 #### 2. Apply the style to the toggles and menu actions
 
-```javascript-react
+```js
 <MenuBar
   toggles={toggles}
   menuActions={menuActions}
@@ -124,7 +124,7 @@ const baseButtonStyle = {
 
 #### 3. Apply the style to the editor
 
-```javascript-react
+```js
 <ContentEditor
   editor={editor}
   editorStyle={{
@@ -140,7 +140,7 @@ const baseButtonStyle = {
 
 If the image upload function is not provided, the image button will not be visible.
 
-```javascript-react
+```js
 const uploadImage = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
